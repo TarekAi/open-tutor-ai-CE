@@ -9,8 +9,17 @@ from open_webui.config import CORS_ALLOW_ORIGIN
 from open_webui.models.users import Users
 from open_tutorai.config import AppConfig
 from open_tutorai.models.database import init_database
+from fastapi.staticfiles import StaticFiles
 
-from open_tutorai.routers import response_feedbacks, auths, supports
+from open_tutorai.routers import (
+    response_feedbacks,
+    auths,
+    supports,
+    classe,
+    assignment,
+    course_content,
+    course_files,
+)
 
 from open_tutorai.env import (
     CHANGELOG,
@@ -21,8 +30,7 @@ VERSION = "1.0.0"
 TUTORAI_BUILD_HASH = os.getenv("TUTORAI_BUILD_HASH", "dev-build")
 os.environ["SUPPRESS_WEBUI_BANNER"] = "true"
 
-print(
-    rf"""
+print(rf"""
  ██████╗ ██████╗ ███████╗███╗   ██╗    ████████╗██╗   ██╗████████╗ ██████╗ ██████╗    █████╗ ██╗
 ██╔═══██╗██╔══██╗██╔════╝████╗  ██║    ╚══██╔══╝██║   ██║╚══██╔══╝██╔═══██╗██╔══██╗  ██╔══██╗██║
 ██║   ██║██████╔╝█████╗  ██╔██╗ ██║       ██║   ██║   ██║   ██║   ██║   ██║██████╔╝  ███████║██║
@@ -33,8 +41,7 @@ v{VERSION} - empowering education through open-source AI tutoring.
 
 {f"Commit: {TUTORAI_BUILD_HASH}" if TUTORAI_BUILD_HASH != "dev-build" else ""}
 https://github.com/Open-TutorAi/open-tutor-ai-CE
-"""
-)
+""")
 
 # Create main FastAPI app
 app = FastAPI(
@@ -83,6 +90,16 @@ app.include_router(
 )
 app.include_router(auths.router, prefix="/auths", tags=["auths"])
 app.include_router(supports.router, prefix="/api/v1", tags=["supports"])
+app.include_router(classe.router, prefix="/api/v1/classe", tags=["classe"])
+app.include_router(assignment.router, prefix="/api/v1/assignment", tags=["assignment"])
+app.include_router(
+    course_content.router, prefix="/api/v1/courses", tags=["course_content"]
+)
+app.include_router(
+    course_files.router, prefix="/api/v1/course-files", tags=["course_files"]
+)
+
+app.mount("/uploads", StaticFiles(directory="data/uploads"), name="uploads")
 
 
 @app.get("/api/changelog")
