@@ -74,7 +74,7 @@ async def list_classes(user=Depends(get_current_user)):
                 Classe.course,
                 Classe.user_id,
                 Classe.created_at,
-                func.count(Enrollment.id).label("student_count")
+                func.count(Enrollment.id).label("student_count"),
             )
             .outerjoin(Enrollment, Classe.id == Enrollment.classe_id)
             .filter(Classe.user_id == user.id)
