@@ -230,10 +230,10 @@
 						<li class="mb-1 px-2">
 							<button
 								on:click={() => setActivePage(currentRole, item.id)}
-								class={`flex items-center px-4 py-3 rounded-full w-full text-left text-sm font-semibold transition duration-100 ${currentActivePage === item.id ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 dark:text-white dark:hover:bg-gray-200' : isDarkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-800 hover:bg-gray-200'}`}
+								class={`flex items-center text-sm font-semibold transition duration-100 ${currentActivePage === item.id ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 dark:text-white dark:hover:bg-gray-200' : isDarkMode ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-800 hover:bg-gray-200'} ${isSidebarOpen ? 'px-4 py-3 rounded-full w-full text-left' : 'w-12 h-12 mx-auto justify-center rounded-full px-0 py-0'}`}
 								title={$i18n.t(item.label)}
 							>
-								<span class="grid place-items-center w-6 h-6">
+								<span class={`grid place-items-center ${isSidebarOpen ? 'w-6 h-6' : 'w-7 h-7'}`}>
 									<svelte:component this={item.icon} />
 								</span>
 								{#if isSidebarOpen}

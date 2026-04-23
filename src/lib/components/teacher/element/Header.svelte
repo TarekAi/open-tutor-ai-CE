@@ -4,7 +4,6 @@
     import { generateInitialsImage } from '$lib/utils';
     import type { Writable } from 'svelte/store';
 
-    import Smile from '$lib/components/icons/FaceSmile.svelte';
     import Info from '$lib/components/icons/Info.svelte';
     import SearchIcon from '$lib/components/icons/Search.svelte';
 
@@ -80,18 +79,17 @@
     });
 </script>
 
-<div class="flex flex-row items-center gap-4 p-4 header transition-colors duration-200 bg-white dark:bg-gray-950 w-full" dir={isRTL ? 'rtl' : 'ltr'}>
+<div class="flex flex-row items-center gap-4 p-4 header transition-colors duration-200 bg-white dark:bg-gray-950 w-full shadow-sm" dir={isRTL ? 'rtl' : 'ltr'}>
     
     <div class="m-0 p-0 hidden md:block flex-shrink-0">
         <div class="flex flex-col">
             <div class="flex items-center">
-                <h2 class="m-0 p-0 text-2xl font-light dark:text-white">
-                    {$i18n.t("Hello")}, <span>{$user?.name?.split(' ')[0]}</span>!
+                <h2 class="m-0 p-0 text-xl font-semibold text-gray-800 dark:text-gray-100">
+                    {$i18n.t("Hello")} {$user?.name?.split(' ')[0]} 👋
                 </h2>
-                <Smile className="h-6 w-6 text-yellow-400 {isRTL ? 'mr-2' : 'ml-2'}" /> 
             </div>
-            <p class="text-xs text-slate-500 dark:text-gray-400 mt-1 font-medium tracking-wide">
-                {$i18n.t("Manage your classes and track student progress.")}
+            <p class="text-sm text-slate-500 dark:text-gray-400 mt-1">
+                {$i18n.t("Let's learn something new today!")}
             </p>
         </div>
     </div>

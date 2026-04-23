@@ -89,13 +89,16 @@
 </button>
 
 
-<aside class="hidden md:flex relative m-0 p-0 min-h-screen flex-col items-center border-r-[1.4px] border-[#e2e8f0] dark:border-gray-800 bg-white dark:bg-gray-950 shadow-[5px_0_15px_rgba(0,0,0,0.02)] transition-all duration-300 ease-in-out
-    {isCollapsed ? 'w-[85px]' : 'w-[270px]'}">
+<aside class="hidden md:flex relative m-0 p-0 min-h-screen flex-col items-center border-r border-[#e2e8f0] dark:border-gray-800 bg-[#F5F7F9] dark:bg-gray-900 shadow-[5px_0_15px_rgba(0,0,0,0.02)] transition-all duration-300 ease-in-out
+    {isCollapsed ? 'w-16' : 'w-64'}">
     
-    <div class="w-full flex items-center justify-between p-[20px] pt-[40px] mb-6 h-20">
-        <div class="transition-all duration-300 flex items-center 
-            {isCollapsed ? 'w-full justify-center' : 'w-[100px] ml-2'}">
-            <img src="/static/favicon.png" alt="logo" class="max-w-full h-auto m-9 dark:brightness-150">
+    <div class="w-full flex items-center justify-center p-4 pt-8 mb-4 h-20 relative">
+        <div class="transition-all duration-300 flex items-center justify-center w-full">
+            <img
+                src="/static/favicon.png"
+                alt="logo"
+                class="dark:brightness-150 {isCollapsed ? 'h-8' : 'h-20 mr-2'}"
+            >
         </div>
         
         <button on:click={toggleDesktopSidebar} class="absolute -right-3.5 top-10 z-50 bg-white dark:bg-gray-800 border border-slate-200 dark:border-gray-700 rounded-full p-1.5 shadow-md hover:shadow-lg transition-all group active:scale-90 cursor-pointer">
@@ -105,22 +108,30 @@
         </button>
     </div>
 
-    <nav class="w-full px-4">
+    <div class="w-full px-4 py-2">
+        {#if !isCollapsed}
+            <div class="text-xs text-gray-500 dark:text-gray-400 uppercase font-semibold mb-1">
+                {$i18n.t('Teacher') + ' Portal'}
+            </div>
+        {/if}
+    </div>
+
+    <nav class="w-full px-2">
         <ul class="list-none p-0 m-0 flex flex-col gap-2">
             {#each MenuItems as item}
                 {@const isActive = $page.url.pathname.startsWith(item.href)}
                 <li class="flex items-center justify-center">
                     <a href={item.href} title={isCollapsed ? $i18n.t(item.name): ''} class="flex items-center transition-all duration-200 group
                     {isActive 
-                        ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' 
-                        : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'}
-                    {isCollapsed ? 'w-[50px] h-[50px] justify-center rounded-xl' : 'w-full gap-4 px-4 py-3 rounded-xl'}">
+                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-500/30' 
+                        : 'text-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800'}
+                    {isCollapsed ? 'w-12 h-12 justify-center rounded-full px-0 py-0 text-sm font-semibold' : 'w-full gap-4 px-4 py-3 rounded-full text-sm font-semibold'}">
                         <span class="w-6 h-6 transition-all
                         {isActive ? 'text-white' : 'text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-gray-100'}">
                             <svelte:component this={item.icon} />
                         </span>
                         {#if !isCollapsed}
-                            <span class="text-[15px] font-medium whitespace-nowrap">{$i18n.t(item.name)}</span>
+                            <span class="text-sm font-medium whitespace-nowrap">{$i18n.t(item.name)}</span>
                         {/if}
                     </a>
                 </li>
@@ -128,6 +139,17 @@
 
         </ul>
     </nav>
+
+    {#if !isCollapsed}
+        <div class="absolute bottom-0 left-0 right-0 p-4 hidden md:block">
+            <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                <span>© 2025 OpenTutorAI</span>
+                <button class="hover:text-gray-800 dark:hover:text-gray-300">
+                    {$i18n.t('Help')}
+                </button>
+            </div>
+        </div>
+    {/if}
 </aside>
 
 <style>
