@@ -420,11 +420,11 @@ export const addUser = async (
 export const updateUserProfile = async (token: string, name: string, profileImageUrl: string) => {
 	let error = null;
 
-	const res = await fetch(`${TUTOR_API_BASE_URL}/auths/update/profile`, {
+	const res = await fetch(`${TUTOR_API_BASE_URL}/users/user/info/update`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			...(token && { authorization: `Bearer ${token}` })
+			...(token && { Authorization: `Bearer ${token}` })
 		},
 		body: JSON.stringify({
 			name: name,
