@@ -110,7 +110,7 @@ async def list_classes(user=Depends(get_current_user)):
 # create a new class
 @router.post("/create", response_model=ClasseResponse)
 async def create_classe(
-    classe_data: ClasseCreateRequest, user=Depends(get_verified_user)
+    classe_data: ClasseCreateRequest, user=Depends(get_current_user)
 ):
     """
     Create a new Classe (No role check)
